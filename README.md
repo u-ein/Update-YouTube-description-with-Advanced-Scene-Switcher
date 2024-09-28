@@ -1,9 +1,3 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>update_description.py - README</title>
-</head>
 <body>
     <h1>update_description.py</h1>
     <p><strong>バージョン:</strong> 1.0</p>
