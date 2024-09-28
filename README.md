@@ -2,13 +2,14 @@
 
 ## 概要
 
-`update_description.py` は、**YouTube ライブ配信の概要欄を自動更新**するためのスクリプトです。OBS Studio の配信経過時間とシーン転換の情報を取得し、それを YouTube のライブ配信の概要欄に追記することで配信終了後のチャプターとして利用します。
+`update_description.py` は、**YouTube ライブ配信の概要欄を自動更新**するためのスクリプトです。
+OBS Studio のプラグイン Advanced Scene Switcher の「matches pattern」で指定した画像のファイル名とマッチさせた時の配信経過時間を取得し、それを YouTube のライブ配信の概要欄に追記することで配信終了後のチャプターとして利用します。
 このスクリプトはChatGPTで生成しています。
 
 ## 主な機能
 
 - **OBS Studio** から配信経過時間（タイムコード）を取得
-- シーン転換の情報を取得し、概要欄に追加
+- 指定画像のファイル名を取得し、概要欄に追加
 - **限定公開**のライブ配信にも対応
 - 詳細なログ出力とエラーハンドリング
 
@@ -16,6 +17,7 @@
 
 - **Python 3.6** 以上
 - **OBS Studio**（OBS WebSocket 5.x プラグインがインストールされていること）
+- **Advanced Scene Switcher**
 - **YouTube Data API** の認証情報（OAuth 2.0 クライアント ID とシークレット）
 - 必要な Python ライブラリがインストールされていること
 
@@ -75,14 +77,14 @@ python update_description.py <source_file>
 
 ### 引数
 
-- `<source_file>`: Advanced Scene Switcher から渡されるシーンのファイルパスを指定します。
+- `<source_file>`: Advanced Scene Switcher から渡されるファイル名のファイルパスを指定します。
 
 ## 動作の仕組み
 
 1. スクリプトが **OBS WebSocket** に接続し、配信の経過時間（タイムコード）を取得します。
-2. 指定された `<source_file>` からシーン名を取得します。
+2. 指定された `<source_file>` からファイル名を取得します。
 3. **YouTube Data API** を使用して、現在のライブ配信のビデオ ID を取得します。
-4. 取得したタイムコードとシーン名を組み合わせて、新しい概要欄のテキストを作成します。
+4. 取得したタイムコードとファイル名（先頭の「@」と「.png」を除去）を組み合わせて、新しい概要欄のテキストを作成します。
 5. YouTube のライブ配信の概要欄を更新します。
 
 ## ログファイル
